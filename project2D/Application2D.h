@@ -2,6 +2,7 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
+#include <imgui.h>
 
 class Application2D : public aie::Application {
 public:
