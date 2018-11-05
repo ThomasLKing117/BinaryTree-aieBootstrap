@@ -19,6 +19,8 @@ bool Application2D::startup() {
 	
 	m_timer = 0;
 
+	op = 2;
+
 	return true;
 }
 
@@ -34,6 +36,70 @@ void Application2D::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
+
+	if (input->isKeyDown(aie::INPUT_KEY_W))
+	{
+		//SpritePosY += 250.0f * deltaTime;
+		//m_2dRenderer->setUVRect(animate);
+		op = 1;
+	}
+
+	if (input->isKeyDown(aie::INPUT_KEY_S))
+	{
+		//SpritePosY -= 250.0f * deltaTime;
+		//m_2dRenderer->setUVRect(animate);
+		op = 2;
+	}
+
+	if (input->isKeyDown(aie::INPUT_KEY_A))
+	{
+		//SptritePosX -= 250.0f * deltaTime;
+		//m_2dRenderer->setUVRect(animate);
+		op = 3;
+	}
+
+	if (input->isKeyDown(aie::INPUT_KEY_D))
+	{
+		//SpritePosX+= 250.0f * deltaTime;
+		//m_2dRenderer->setUVRect(animate);
+		op = 4;
+	}
+
+	switch (op)
+	{
+		case 1:
+		{
+			if (input->isKeyUp(aie::INPUT_KEY_W))
+			{
+				//m_2dRenderer->setUVRect(animate);
+			}
+			break;
+		}
+		case 2:
+		{
+			if (input->isKeyUp(aie::INPUT_KEY_S))
+			{
+				//m_2dRenderer->setUVRect(animate);
+			}
+			break;
+		}
+		case 3:
+		{
+			if (input->isKeyUp(aie::INPUT_KEY_A))
+			{
+				//m_2dRenderer->setUVRect(animate);
+			}
+			break;
+		}
+		case 4:
+		{
+			if (input->isKeyUp(aie::INPUT_KEY_D))
+			{
+				//m_2dRenderer->setUVRect(animate);
+			}
+			break;
+		}
+	}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))

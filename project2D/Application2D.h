@@ -22,4 +22,6 @@ protected:
 	aie::Font*			m_font;
 
 	float m_timer;
+	float m_AdventurerPosX, m_AdventurerPosY;
+	int op;
 };
