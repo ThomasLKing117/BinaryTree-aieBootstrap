@@ -16,8 +16,13 @@ bool Application2D::startup() {
 	m_2dRenderer = new aie::Renderer2D();
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
+	m_IdleAdvent = new aie::Texture("./textures/Adventure/IdleAdvent.png");
+	m_WalkingAdvent = new aie::Texture("./textures/Adventure/WalkingAdvent.png");
 	
 	m_timer = 0;
+
+	m_AdventPosX = 30;
+	m_AdventPosY = 50;
 
 	op = 2;
 
@@ -28,6 +33,8 @@ void Application2D::shutdown() {
 	
 	delete m_font;
 	delete m_2dRenderer;
+	delete m_IdleAdvent;
+	delete m_WalkingAdvent;
 }
 
 void Application2D::update(float deltaTime) {
@@ -39,28 +46,28 @@ void Application2D::update(float deltaTime) {
 
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
-		//SpritePosY += 250.0f * deltaTime;
-		//m_2dRenderer->setUVRect(animate);
+		m_AdventPosY += 250.0f * deltaTime;
+		m_2dRenderer->setUVRect(int(m_timer) % 5 / 5.f, 0, 1.f / 4, 1.f / 4);
 		op = 1;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_S))
 	{
-		//SpritePosY -= 250.0f * deltaTime;
+		m_AdventPosY -= 250.0f * deltaTime;
 		//m_2dRenderer->setUVRect(animate);
 		op = 2;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_A))
 	{
-		//SptritePosX -= 250.0f * deltaTime;
+		m_AdventPosX -= 250.0f * deltaTime;
 		//m_2dRenderer->setUVRect(animate);
 		op = 3;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_D))
 	{
-		//SpritePosX+= 250.0f * deltaTime;
+		m_AdventPosX+= 250.0f * deltaTime;
 		//m_2dRenderer->setUVRect(animate);
 		op = 4;
 	}
@@ -69,7 +76,7 @@ void Application2D::update(float deltaTime) {
 	{
 		case 1:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_W))
+			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
 			{
 				//m_2dRenderer->setUVRect(animate);
 			}
@@ -77,7 +84,7 @@ void Application2D::update(float deltaTime) {
 		}
 		case 2:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_S))
+			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
 			{
 				//m_2dRenderer->setUVRect(animate);
 			}
@@ -85,7 +92,7 @@ void Application2D::update(float deltaTime) {
 		}
 		case 3:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_A))
+			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
 			{
 				//m_2dRenderer->setUVRect(animate);
 			}
@@ -93,7 +100,7 @@ void Application2D::update(float deltaTime) {
 		}
 		case 4:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_D))
+			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
 			{
 				//m_2dRenderer->setUVRect(animate);
 			}
