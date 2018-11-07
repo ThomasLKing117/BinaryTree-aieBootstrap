@@ -47,28 +47,28 @@ void Application2D::update(float deltaTime) {
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
 		m_AdventPosY += 250.0f * deltaTime;
-		m_2dRenderer->setUVRect(int(m_timer) % 5 / 5.f, 0, 1.f / 4, 1.f / 4);
+		m_2dRenderer->setUVRect(int(m_timer*10) % 5 / 5.f, 0.25f, 1.f / 4, 1.f / 4);
 		op = 1;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_S))
 	{
 		m_AdventPosY -= 250.0f * deltaTime;
-		//m_2dRenderer->setUVRect(animate);
+		m_2dRenderer->setUVRect(int(m_timer*10) % 5 / 5.f, 0, 1.f / 4, 1.f / 4);
 		op = 2;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_A))
 	{
 		m_AdventPosX -= 250.0f * deltaTime;
-		//m_2dRenderer->setUVRect(animate);
+		m_2dRenderer->setUVRect(int(m_timer*10) % 5 / 5.f, 0.50f, 1.f / 4, 1.f / 4);
 		op = 3;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_D))
 	{
 		m_AdventPosX+= 250.0f * deltaTime;
-		//m_2dRenderer->setUVRect(animate);
+		m_2dRenderer->setUVRect(int(m_timer*10) % 5 / 5.f, 0.75f, 1.f / 4, 1.f / 4);
 		op = 4;
 	}
 
@@ -76,33 +76,33 @@ void Application2D::update(float deltaTime) {
 	{
 		case 1:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
+			if (input->isKeyUp(aie::INPUT_KEY_W))
 			{
-				//m_2dRenderer->setUVRect(animate);
+				m_2dRenderer->setUVRect(int(m_timer) % 1 / 1.f, 0.25f, 1.f / 1, 1.f / 4);
 			}
 			break;
 		}
 		case 2:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
+			if (input->isKeyUp(aie::INPUT_KEY_S))
 			{
-				//m_2dRenderer->setUVRect(animate);
+				m_2dRenderer->setUVRect(int(m_timer) % 1 / 1.f, 0, 1.f / 1, 1.f / 4);
 			}
 			break;
 		}
 		case 3:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
+			if (input->isKeyUp(aie::INPUT_KEY_A))
 			{
-				//m_2dRenderer->setUVRect(animate);
+				m_2dRenderer->setUVRect(int(m_timer) % 1 / 1.f, 0.50f, 1.f / 1, 1.f / 4);
 			}
 			break;
 		}
 		case 4:
 		{
-			if (input->isKeyUp(aie::INPUT_KEY_UNKNOWN))
+			if (input->isKeyUp(aie::INPUT_KEY_D))
 			{
-				//m_2dRenderer->setUVRect(animate);
+				m_2dRenderer->setUVRect(int(m_timer) % 1 / 1.f, 0.75f, 1.f / 1, 1.f / 4);
 			}
 			break;
 		}
@@ -120,6 +120,9 @@ void Application2D::draw() {
 
 	// begin drawing sprites
 	m_2dRenderer->begin();
+
+	m_2dRenderer->drawSprite(m_WalkingAdvent, m_AdventPosX, m_AdventPosY, 50, 100);
+	m_2dRenderer->drawSprite(m_IdleAdvent, m_AdventPosX, m_AdventPosY, 50, 100);
 
 	// output some text, uses the last used colour
 	char fps[32];
