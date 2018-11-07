@@ -23,6 +23,3 @@ protected:
 
 	float m_timer;
 };       
-
-
-
