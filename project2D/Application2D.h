@@ -22,4 +22,7 @@ protected:
 	aie::Font*			m_font;
 
 	float m_timer;
-};
+};       
+
+
+
