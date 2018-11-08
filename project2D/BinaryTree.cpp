@@ -18,6 +18,7 @@ bool BinaryTree::isEmpty() const
 	return false;
 }
 
+
 //	If the tree is empty, the value is inserted at the root
 //	Set the current node to the root
 //	While the current node is not null
@@ -34,9 +35,45 @@ bool BinaryTree::isEmpty() const
 //	otherwise insert value as right child node
 void BinaryTree::insert(int a_nValue)
 {
+	TreeNode* currentNode = m_pRoot;
+	TreeNode* ParentNode = m_pRoot;
+
 	if (isEmpty() == true)
 	{
-		*m_pRoot = a_nValue;
+		TreeNode* first = new TreeNode(a_nValue);
+		m_pRoot = first;
+		return;
+	}
+
+	while (currentNode != nullptr)
+	{
+		if (a_nValue < currentNode->getData())
+		{
+			ParentNode = currentNode;
+			currentNode = currentNode->getLeft();
+			continue;
+		}
+		if (a_nValue > currentNode->getData());
+		{
+			ParentNode = currentNode;
+			currentNode = currentNode->getRight();
+			continue;
+		}
+		if (a_nValue == currentNode->getData());
+		{
+			break;
+		}
+	}
+
+	if (a_nValue < ParentNode->getData())
+	{
+		TreeNode* test = new TreeNode(a_nValue);
+		ParentNode->setLeft(test);
+	}
+	if (a_nValue < ParentNode->getData())
+	{
+		TreeNode* test = new TreeNode(a_nValue);
+		ParentNode->setRight(test);
 	}
 }
 
@@ -60,6 +97,7 @@ void BinaryTree::insert(int a_nValue)
 //		If we are deleting the root, the root becomes the left child of the current node
 void BinaryTree::remove(int a_nValue)
 {
+
 }
 
 TreeNode * BinaryTree::find(int a_nValue)
@@ -67,9 +105,9 @@ TreeNode * BinaryTree::find(int a_nValue)
 	return nullptr;
 }
 
-void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode * selected)
+void BinaryTree::draw(aie::Renderer2D * renderer, aie::Font* g_systemFont, TreeNode * selected)
 {
-	draw(renderer, m_pRoot, 640, 680, 640, selected);
+	draw(renderer, m_pRoot, 640, 680, 640, g_systemFont,selected);
 }
 
 
@@ -85,10 +123,12 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode * selected)
 //	If the loop exits, then a match was not found, so return false
 bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode ** ppOutParent)
 {
+	TreeNode* currentNode = m_pRoot;
+	TreeNode* search;
 	return false;
 }
 
-void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y, int horizontalSpacing, TreeNode * selected)
+void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y, int horizontalSpacing, aie::Font* g_systemFont, TreeNode * selected)
 {
 	horizontalSpacing /= 2;
 
@@ -98,14 +138,14 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 		{
 			renderer->setRenderColour(1, 0, 0);
 			renderer->drawLine(x, y, x - horizontalSpacing, y - 80);
-			draw(renderer, pNode->getLeft(), x - horizontalSpacing, y - 80, horizontalSpacing, selected);
+			draw(renderer, pNode->getLeft(), x - horizontalSpacing, y - 80, horizontalSpacing, g_systemFont, selected);
 		}
 
 		if (pNode->hasRight())
 		{
 			renderer->setRenderColour(1, 0, 0);
 			renderer->drawLine(x, y, x - horizontalSpacing, y - 80);
-			draw(renderer, pNode->getRight(), x + horizontalSpacing, y - 80, horizontalSpacing, selected);
+			draw(renderer, pNode->getRight(), x + horizontalSpacing, y - 80, horizontalSpacing, g_systemFont, selected);
 		}
 		pNode->draw(renderer, x, y, (selected == pNode));
 	}
