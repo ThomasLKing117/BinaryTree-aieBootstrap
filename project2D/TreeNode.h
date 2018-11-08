@@ -1,6 +1,6 @@
 #pragma once
-#include "Application2D.h"
 
+#include <Renderer2D.h>
 class TreeNode
 {
 public:
@@ -18,7 +18,7 @@ public:
 	void setLeft(TreeNode* node) { m_left = node; }
 	void setRight(TreeNode* node) { m_right = node; }
 
-	void draw(aie::Renderer2D*, int x, int y, bool selected = false);
+	void draw(aie::Renderer2D*, int x, int y, aie::Font* g_systemFont,bool selected = false);
 
 private:
 	// this could also be a pointer to another object if you like

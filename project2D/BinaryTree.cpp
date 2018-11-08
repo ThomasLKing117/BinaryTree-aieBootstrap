@@ -147,6 +147,6 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 			renderer->drawLine(x, y, x - horizontalSpacing, y - 80);
 			draw(renderer, pNode->getRight(), x + horizontalSpacing, y - 80, horizontalSpacing, g_systemFont, selected);
 		}
-		pNode->draw(renderer, x, y, (selected == pNode));
+		pNode->draw(renderer, x, y, g_systemFont,(selected == pNode));
 	}
 }

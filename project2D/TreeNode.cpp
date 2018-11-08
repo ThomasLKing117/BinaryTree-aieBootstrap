@@ -14,7 +14,7 @@ TreeNode::~TreeNode()
 
 }
 
-void TreeNode::draw(aie::Renderer2D * renderer, int x, int y, bool selected)
+void TreeNode::draw(aie::Renderer2D * renderer, int x, int y, aie::Font* g_systemFont, bool selected)
 {
 	static char buffer[10];
 

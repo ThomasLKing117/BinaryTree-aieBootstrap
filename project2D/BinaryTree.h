@@ -1,5 +1,5 @@
 #pragma once
-#include "Application2D.h"
+
 #include "TreeNode.h"
 
 class BinaryTree
