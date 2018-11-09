@@ -25,13 +25,13 @@ void TreeNode::draw(aie::Renderer2D * renderer, int x, int y, aie::Font* g_syste
 
 	if (selected == true)
 	{
-		renderer->setRenderColour(.5f, .5f, 0);
+		renderer->setRenderColour(1, 1, 1);
 	}
 	else
 	{
 		renderer->setRenderColour(0, 0, 0);
-		renderer->drawCircle(x, y, 28);
-		renderer->setRenderColour(1, 1, 1);
-		renderer->drawText(g_systemFont, buffer, x - 12, y - 10);
 	}
+		renderer->drawCircle(x, y, 28);
+		renderer->setRenderColour(1, 0, 1);
+		renderer->drawText(g_systemFont, buffer, x - 10, y - 10);
 }
