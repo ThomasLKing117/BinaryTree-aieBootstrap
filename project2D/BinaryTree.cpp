@@ -145,6 +145,30 @@ bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode **
 {
 	TreeNode* currentNode = m_pRoot;
 	TreeNode* parentNode = m_pRoot;
+
+	ppOutNode = &currentNode;
+	ppOutParent = &parentNode;
+
+	while (currentNode != nullptr)
+	{
+		if (a_nSearchValue == currentNode->getData())
+		{
+			return ppOutNode, ppOutParent;
+		}
+		else
+		{
+			if (a_nSearchValue < currentNode->getData())
+			{
+				parentNode = currentNode;
+				currentNode = currentNode->getLeft();
+			}
+			else
+			{
+				parentNode = currentNode;
+				currentNode = currentNode->getRight();
+			}
+		}
+	}
 	return false;
 }
 
