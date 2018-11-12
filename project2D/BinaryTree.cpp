@@ -99,7 +99,36 @@ void BinaryTree::insert(int a_nValue)
 //		If we are deleting the root, the root becomes the left child of the current node
 void BinaryTree::remove(int a_nValue)
 {
+	TreeNode* currentNode = m_pRoot;
+	TreeNode* parentNode = m_pRoot;
 
+	TreeNode** ptrCurrentNode = &currentNode;
+	TreeNode** ptrParentNode = &parentNode;
+
+	if(findNode(a_nValue, ptrCurrentNode, ptrParentNode));
+
+	currentNode = *ptrCurrentNode;
+	parentNode = *ptrParentNode;
+
+	if (currentNode->hasLeft() == false && currentNode->hasRight() == false)
+	{
+		if (parentNode->hasLeft() == true && parentNode->hasRight() == true)
+		{
+
+		}
+
+		if (parentNode->hasLeft() == true && parentNode->hasRight() == false)
+		{
+			delete currentNode;
+			parentNode->setLeft(nullptr);
+		}
+
+		if (parentNode->hasLeft() == false && parentNode->hasRight() == true)
+		{
+			delete currentNode;
+			parentNode->setRight(nullptr);
+		}
+	}
 }
 
 TreeNode * BinaryTree::find(int a_nValue)
@@ -146,14 +175,13 @@ bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode **
 	TreeNode* currentNode = m_pRoot;
 	TreeNode* parentNode = m_pRoot;
 
-	ppOutNode = &currentNode;
-	ppOutParent = &parentNode;
-
 	while (currentNode != nullptr)
 	{
 		if (a_nSearchValue == currentNode->getData())
 		{
-			return ppOutNode, ppOutParent;
+			*ppOutNode = currentNode;
+			*ppOutParent = parentNode;
+			return true;
 		}
 		else
 		{
