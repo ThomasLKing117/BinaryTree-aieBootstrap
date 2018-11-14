@@ -36,11 +36,12 @@ bool BinaryTree::isEmpty() const
 void BinaryTree::insert(int a_nValue)
 {
 	TreeNode* currentNode = m_pRoot;
-	TreeNode* ParentNode;
+	TreeNode* ParentNode = m_pRoot;
 
 	if (isEmpty() == true)
 	{
-		m_pRoot = new TreeNode(a_nValue);
+		TreeNode* first = new TreeNode(a_nValue);
+		m_pRoot = first;
 		return;
 	}
 
@@ -48,12 +49,14 @@ void BinaryTree::insert(int a_nValue)
 	{
 		if (a_nValue < currentNode->getData())
 		{
+			TreeNode* newNode = new TreeNode(a_nValue);
 			ParentNode = currentNode;
 			currentNode = currentNode->getLeft();
 			continue;
 		}
 		if (a_nValue > currentNode->getData())
 		{
+			TreeNode* newNode = new TreeNode(a_nValue);
 			ParentNode = currentNode;
 			currentNode = currentNode->getRight();
 			continue;
@@ -162,22 +165,14 @@ TreeNode * BinaryTree::find(int a_nValue)
 	{
 		if (a_nValue < currentNode->getData())
 		{
-			if (currentNode->hasLeft())
-			{
-				currentNode = currentNode->getLeft();
-				continue;
-			}
+			currentNode = currentNode->getLeft();
+			continue;
 		}
-
-		else if (a_nValue > currentNode->getData())
+		if (a_nValue > currentNode->getData())
 		{
-			if (currentNode->hasRight())
-			{
-				currentNode = currentNode->getRight();
-				continue;
-			}
+			currentNode = currentNode->getRight();
+			continue;
 		}
-
 		if (a_nValue == currentNode->getData())
 		{
 			return currentNode;
@@ -203,27 +198,29 @@ void BinaryTree::draw(aie::Renderer2D * renderer, aie::Font* g_systemFont, TreeN
 //	If the loop exits, then a match was not found, so return false
 bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode ** ppOutParent)
 {
-	while (ppOutNode != nullptr)
+	TreeNode* currentNode = m_pRoot;
+	TreeNode* parentNode = m_pRoot;
+
+	while (currentNode != nullptr)
 	{
-		if ((*ppOutNode)->getData() < a_nSearchValue)
+		if (a_nSearchValue == currentNode->getData())
 		{
-			if ((*ppOutNode)->hasRight())
-			{
-				*ppOutParent = *ppOutNode;
-				*ppOutNode = (*ppOutNode)->getRight();
-			}
-		}
-		else if ((*ppOutNode)->getData() > a_nSearchValue)
-		{
-			if ((*ppOutNode)->hasLeft())
-			{
-				*ppOutParent = *ppOutNode;
-				*ppOutNode = (*ppOutNode)->getLeft();
-			}
-		}
-		else if ((*ppOutNode)->getData() == a_nSearchValue)
-		{
+			*ppOutNode = currentNode;
+			*ppOutParent = parentNode;
 			return true;
+		}
+		else
+		{
+			if (a_nSearchValue < currentNode->getData())
+			{
+				parentNode = currentNode;
+				currentNode = currentNode->getLeft();
+			}
+			else
+			{
+				parentNode = currentNode;
+				currentNode = currentNode->getRight();
+			}
 		}
 	}
 	return false;
@@ -258,21 +255,6 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
 //#include "BinaryTree.h"
 //
 //BinaryTree::BinaryTree()
@@ -311,12 +293,11 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 //void BinaryTree::insert(int a_nValue)
 //{
 //	TreeNode* currentNode = m_pRoot;
-//	TreeNode* ParentNode = m_pRoot;
+//	TreeNode* ParentNode;
 //
 //	if (isEmpty() == true)
 //	{
-//		TreeNode* first = new TreeNode(a_nValue);
-//		m_pRoot = first;
+//		m_pRoot = new TreeNode(a_nValue);
 //		return;
 //	}
 //
@@ -324,14 +305,12 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 //	{
 //		if (a_nValue < currentNode->getData())
 //		{
-//			TreeNode* newNode = new TreeNode(a_nValue);
 //			ParentNode = currentNode;
 //			currentNode = currentNode->getLeft();
 //			continue;
 //		}
 //		if (a_nValue > currentNode->getData())
 //		{
-//			TreeNode* newNode = new TreeNode(a_nValue);
 //			ParentNode = currentNode;
 //			currentNode = currentNode->getRight();
 //			continue;
@@ -387,6 +366,12 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 //			TreeNode* IterCurrent = (*ptrCurrentNode);
 //			TreeNode* IterParent = (*ptrParentNode);
 //
+//			if (IterCurrent->hasRight())
+//			{
+//				IterParent = IterCurrent;
+//				IterCurrent = IterCurrent->getRight();
+//			}
+//
 //			while (IterCurrent->hasLeft())
 //			{
 //				IterParent = IterCurrent;
@@ -434,14 +419,22 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 //	{
 //		if (a_nValue < currentNode->getData())
 //		{
-//			currentNode = currentNode->getLeft();
-//			continue;
+//			if (currentNode->hasLeft())
+//			{
+//				currentNode = currentNode->getLeft();
+//				continue;
+//			}
 //		}
-//		if (a_nValue > currentNode->getData())
+//
+//		else if (a_nValue > currentNode->getData())
 //		{
-//			currentNode = currentNode->getRight();
-//			continue;
+//			if (currentNode->hasRight())
+//			{
+//				currentNode = currentNode->getRight();
+//				continue;
+//			}
 //		}
+//
 //		if (a_nValue == currentNode->getData())
 //		{
 //			return currentNode;
@@ -467,29 +460,27 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode *pNode, int x, int y,
 ////	If the loop exits, then a match was not found, so return false
 //bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode ** ppOutParent)
 //{
-//	TreeNode* currentNode = m_pRoot;
-//	TreeNode* parentNode = m_pRoot;
-//
-//	while (currentNode != nullptr)
+//	while (ppOutNode != nullptr)
 //	{
-//		if (a_nSearchValue == currentNode->getData())
+//		if ((*ppOutNode)->getData() < a_nSearchValue)
 //		{
-//			*ppOutNode = currentNode;
-//			*ppOutParent = parentNode;
-//			return true;
+//			if ((*ppOutNode)->hasRight())
+//			{
+//				*ppOutParent = *ppOutNode;
+//				*ppOutNode = (*ppOutNode)->getRight();
+//			}
 //		}
-//		else
+//		else if ((*ppOutNode)->getData() > a_nSearchValue)
 //		{
-//			if (a_nSearchValue < currentNode->getData())
+//			if ((*ppOutNode)->hasLeft())
 //			{
-//				parentNode = currentNode;
-//				currentNode = currentNode->getLeft();
+//				*ppOutParent = *ppOutNode;
+//				*ppOutNode = (*ppOutNode)->getLeft();
 //			}
-//			else
-//			{
-//				parentNode = currentNode;
-//				currentNode = currentNode->getRight();
-//			}
+//		}
+//		else if ((*ppOutNode)->getData() == a_nSearchValue)
+//		{
+//			return true;
 //		}
 //	}
 //	return false;
