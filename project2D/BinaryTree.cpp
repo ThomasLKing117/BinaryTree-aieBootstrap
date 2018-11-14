@@ -97,7 +97,7 @@ void BinaryTree::remove(int a_nValue)
 	//checks to see if the node you are finding exist
 	if (findNode(a_nValue, ptrCurrentNode, ptrParentNode))
 	{
-		//checks if the current node has a rightnode
+		//checks if the current node has a right node
 		if (currentNode->hasRight())
 		{
 			//creates two Iterating nodes set to the node pointers
