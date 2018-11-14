@@ -11,6 +11,7 @@ BinaryTree::~BinaryTree()
 
 bool BinaryTree::isEmpty() const
 {
+	//checks to see if the root is null
 	if (m_pRoot == nullptr)
 	{
 		return true;
