@@ -26,6 +26,5 @@ protected:
 	BinaryTree			m_binaryTree;
 	TreeNode*			m_selectedNode;
 
-	float m_cameraX, m_cameraY;
 	float m_timer;
 };

@@ -17,8 +17,6 @@ bool CDDS_BinaryTreeApp::startup()
 	m_2dRenderer = new aie::Renderer2D();
 	g_systemFont = new aie::Font("./font/consolas.ttf", 32);
 
-	m_cameraX = 0;
-	m_cameraY = 0;
 	return true;
 }
 
@@ -50,40 +48,12 @@ void CDDS_BinaryTreeApp::update(float deltaTime)
 	{
 		m_selectedNode = m_binaryTree.find(value);
 	}
-
-	if (input->isKeyDown(aie::INPUT_KEY_UP))
-	{
-		m_cameraY += 500.0f * deltaTime;
-	}
-
-	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-	{
-		m_cameraY -= 500.0f * deltaTime;
-	}
-
-	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
-	{
-		m_cameraX -= 500.0f * deltaTime;
-	}
-
-	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-	{
-		m_cameraX += 500.0f * deltaTime;
-	}
-
-	// exit the application
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-		quit();
-
 }
 
 void CDDS_BinaryTreeApp::draw()
 {
 	// wipe the screen to the background colour
 	clearScreen();
-
-	// contols camera
-	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
 
 	// begin drawing sprites
 	m_2dRenderer->begin();
