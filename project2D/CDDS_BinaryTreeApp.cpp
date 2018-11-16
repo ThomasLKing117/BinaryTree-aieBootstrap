@@ -62,7 +62,7 @@ void CDDS_BinaryTreeApp::draw()
 	m_binaryTree.draw(m_2dRenderer, g_systemFont, m_selectedNode);
 
 	// output some text
-	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", m_cameraX, m_cameraY + 1);
+	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0 + 1);
 
 	// done drawing sprites
 	m_2dRenderer->end();
